@@ -1,6 +1,7 @@
 package com.sso.api.repositories;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
@@ -13,8 +14,12 @@ public interface CrudRepository<T, ID> extends Repository<T, ID> {
   <S extends T> Iterable<S> saveAll(Iterable<S> entities);
   
   Optional<T> findById(ID id);
-  
+
+  Optional<T> findByUid(UUID uid);
+
   boolean existsById(ID id);
+
+  boolean existsByUid(UUID uid);
   
   Iterable<T> findAll();
   
