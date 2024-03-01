@@ -18,7 +18,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Setter;
+import lombok.Getter;
 
+
+@Getter
+@Setter
 @Entity
 @Table(name = "clients")
 public class Client {
