@@ -44,9 +44,7 @@ public class AuthController {
         // Check if redirect uri is valid
         if (!client.getRedirectUri().equals(redirectUri)) return false;
 
-
         return true;
-
     }
 
 
