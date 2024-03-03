@@ -3,6 +3,8 @@ package com.sso.api.repositories;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
@@ -26,14 +28,20 @@ public interface CrudRepository<T, ID> extends Repository<T, ID> {
   Iterable<T> findAllById(Iterable<ID> ids);
   
   long count();
+
+  @Modifying
+  @Query("UPDATE Client c SET c.deletedAt = CURRENT_TIMESTAMP WHERE c.id = :id")
+  void softDelete(UUID id);
   
-  void deleteById(ID id);
-  
-  void delete(T entity);
-  
-  void deleteAllById(Iterable<? extends ID> ids);
-  
-  void deleteAll(Iterable<? extends T> entities);
-  
-  void deleteAll();
+  /* 
+    void deleteById(ID id);
+    
+    void delete(T entity);
+    
+    void deleteAllById(Iterable<? extends ID> ids);
+    
+    void deleteAll(Iterable<? extends T> entities);
+    
+    void deleteAll();
+  */
 }
