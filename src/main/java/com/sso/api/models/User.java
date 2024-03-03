@@ -1,7 +1,9 @@
 package com.sso.api.models;
 
+import java.time.Instant;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,10 +27,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "users")
 public class User {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private UUID uid = UUID.randomUUID();
 
 
@@ -66,14 +70,13 @@ public class User {
 
     /* Meta */
 
-    @CreatedDate
-    private Long createdAt;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
 
     @UpdateTimestamp
-    private Long updatedAt;
+    private Instant updatedAt;
 
-    @SoftDelete
-    private Long deletedAt;
-
+    private Instant deletedAt;
 
 }
