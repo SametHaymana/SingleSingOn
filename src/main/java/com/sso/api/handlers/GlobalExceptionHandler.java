@@ -23,7 +23,9 @@ public class GlobalExceptionHandler {
       // Fallback to Internal Server Error
       err = new InternalServerError(ApiResponseCodes.InternalServerError);
     }
+
     Map<String, Object> responseBody = new HashMap<>();
+    responseBody.put("timestamp", System.currentTimeMillis());
     responseBody.put("status", err.getStatus());
     responseBody.put(
       "body",
