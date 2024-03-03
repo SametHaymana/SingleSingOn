@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.sso.api.models.Client;
 import com.sso.api.repositories.ClientRepository;
 import jakarta.transaction.Transactional;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class AuthControllerIntegrationTest {
   }
 
   @Test
-  public void whenClientCheckWithValidData_thenReturnsTrue() throws Exception {
+  public void checkClientTest() throws Exception {
+    // Success
     mockMvc
       .perform(
         get("/api/auth/client/check")
@@ -46,12 +48,9 @@ public class AuthControllerIntegrationTest {
           .param("redirectUri", this.client.getRedirectUri())
           .contentType(MediaType.APPLICATION_JSON)
       )
-      .andExpect(status().isOk())
-      .andExpect(content().string("true"));
-  }
+      .andExpect(status().isOk());
 
-  @Test
-  public void whenClientCheckWithInvalidData_thenReturnsFalse() throws Exception {
+    // If the redirectUri is invalid
     mockMvc
       .perform(
         get("/api/auth/client/check")
@@ -59,7 +58,16 @@ public class AuthControllerIntegrationTest {
           .param("redirectUri", "http://invalid.uri")
           .contentType(MediaType.APPLICATION_JSON)
       )
-      .andExpect(status().isOk())
-      .andExpect(content().string("false"));
+      .andExpect(status().isBadRequest());
+
+    // If the clientId is invalid
+    mockMvc
+      .perform(
+        get("/api/auth/client/check")
+          .param("clientId", UUID.randomUUID().toString())
+          .param("redirectUri", this.client.getRedirectUri())
+          .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isNotFound());
   }
 }
