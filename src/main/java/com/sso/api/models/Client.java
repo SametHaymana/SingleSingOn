@@ -1,9 +1,11 @@
 package com.sso.api.models;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,7 +34,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 36, unique = true)
+    @Column(nullable = false, unique = true)
     private UUID uid = UUID.randomUUID();
 
     @Column(nullable = false, length = 100, unique = true)
@@ -57,13 +59,14 @@ public class Client {
 
     /* Meta */
     
-    @CreatedDate
-    private Long createdAt;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
 
     @UpdateTimestamp
-    private Long updatedAt;
+    private Instant updatedAt;
 
-    @SoftDelete
-    private Long deletedAt;
+    private Instant deletedAt;
 
 }
