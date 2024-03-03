@@ -12,7 +12,9 @@ import jakarta.validation.Valid;
 
 import java.util.UUID;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -32,19 +34,19 @@ public class AuthController {
 
 
     @GetMapping("/client/check")
-    public boolean getMethodName(@Valid @RequestParam ClientCheckRequestDto param) {
+    public ResponseEntity<Boolean> getMethodName(@Valid @ModelAttribute ClientCheckRequestDto param) {
         UUID clientId = param.getClientId();
         String redirectUri = param.getRedirectUri();
 
         // Check if client exists
         Client client = clientRepository.findByUid(clientId).orElse(null);
 
-        if (client == null) return false;
+        if (client == null) return ResponseEntity.ok(false);
 
         // Check if redirect uri is valid
-        if (!client.getRedirectUri().equals(redirectUri)) return false;
+        if (!client.getRedirectUri().equals(redirectUri)) return ResponseEntity.ok(false);
 
-        return true;
+        return ResponseEntity.ok(true);
     }
 
 
