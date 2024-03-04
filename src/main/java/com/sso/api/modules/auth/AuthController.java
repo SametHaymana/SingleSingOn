@@ -10,6 +10,7 @@ import com.sso.api.utils.responses.ApiErrors.ForbbidenError;
 import com.sso.api.utils.responses.ApiResponseCodes;
 import jakarta.validation.Valid;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,21 +34,18 @@ public class AuthController {
     UUID clientId = param.getClientId();
     String redirectUri = param.getRedirectUri();
 
-    // Check if client exists
     Client client = clientService.getClient(clientId);
 
-    // Check if redirect uri is valid, else return error
-    if (!client.getRedirectUri().equals(redirectUri)) throw new BadRequestError(
-      ApiResponseCodes.RedirectUriNotValid
-    );
+    if (!client.getRedirectUri().equals(redirectUri)) {
+      throw new BadRequestError(ApiResponseCodes.RedirectUriNotValid);
+    }
 
     return ResponseEntity.ok(null);
   }
 
-
   /*
    * Login function
-   * 
+   *
    * params:
    *        - state
    *        - redirect_uri
@@ -58,7 +56,7 @@ public class AuthController {
    * return:
    *      - updated redirect_uri with state and code
    *      - state
-   * 
+   *
    */
   @GetMapping("/login")
   public ResponseEntity<Object> login(
@@ -69,10 +67,6 @@ public class AuthController {
     @RequestParam String email,
     @RequestParam String password
   ) {
-
-
     return ResponseEntity.ok(null);
   }
-
-
 }
