@@ -14,12 +14,13 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(value = Exception.class)
   public ResponseEntity<Object> handleException(Exception e) {
+    // Log the exception
+    e.printStackTrace();
+
     ApiError err;
     if (e instanceof ApiError) {
       err = (ApiError) e;
     } else {
-      // Log the exception
-      e.printStackTrace();
       // Fallback to Internal Server Error
       err = new InternalServerError(ApiResponseCodes.InternalServerError);
     }
