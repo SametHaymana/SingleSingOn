@@ -43,4 +43,36 @@ public class AuthController {
 
     return ResponseEntity.ok(null);
   }
+
+
+  /*
+   * Login function
+   * 
+   * params:
+   *        - state
+   *        - redirect_uri
+   *        - client_id
+   *        - timezome
+   *        - email
+   *        - password
+   * return:
+   *      - updated redirect_uri with state and code
+   *      - state
+   * 
+   */
+  @GetMapping("/login")
+  public ResponseEntity<Object> login(
+    @RequestParam String state,
+    @RequestParam String redirect_uri,
+    @RequestParam UUID client_id,
+    @RequestParam String timezone,
+    @RequestParam String email,
+    @RequestParam String password
+  ) {
+
+
+    return ResponseEntity.ok(null);
+  }
+
+
 }
