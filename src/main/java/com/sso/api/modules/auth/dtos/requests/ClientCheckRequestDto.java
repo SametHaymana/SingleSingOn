@@ -1,4 +1,4 @@
-package com.sso.api.modules.auth.dtos;
+package com.sso.api.modules.auth.dtos.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
