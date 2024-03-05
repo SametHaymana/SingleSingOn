@@ -4,10 +4,7 @@ import com.sso.api.models.Client;
 import com.sso.api.modules.auth.dtos.requests.ClientCheckRequestDto;
 import com.sso.api.modules.auth.dtos.responses.ClientCheckResponseDto;
 import com.sso.api.modules.auth.services.ClientService;
-import com.sso.api.repositories.ClientRepository;
-import com.sso.api.repositories.UserRepository;
 import com.sso.api.utils.responses.ApiErrors.BadRequestError;
-import com.sso.api.utils.responses.ApiErrors.ForbbidenError;
 import com.sso.api.utils.responses.ApiResponse;
 import com.sso.api.utils.responses.ApiResponseCodes;
 import jakarta.validation.Valid;
@@ -42,7 +39,6 @@ public class AuthController {
     if (!client.getRedirectUri().equals(redirectUri)) {
       throw new BadRequestError(ApiResponseCodes.RedirectUriNotValid);
     }
-
     return ApiResponse.ok(new ClientCheckResponseDto(true));
   }
 

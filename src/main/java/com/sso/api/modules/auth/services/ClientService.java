@@ -17,8 +17,10 @@ public class ClientService {
   }
 
   public Client getClient(UUID clientId) {
-    return clientRepository
-      .findByUid(clientId)
-      .orElseThrow(() -> new NotFoundError(ApiResponseCodes.ClientNotFound));
+    Client client = clientRepository.findByUid(clientId).orElse(null);
+    if (client == null) {
+      throw new NotFoundError(ApiResponseCodes.ClientNotFound);
+    }
+    return client;
   }
 }
