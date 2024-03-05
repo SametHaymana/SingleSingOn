@@ -1,7 +1,7 @@
 package com.sso.api.moules;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.sso.api.models.Client;
@@ -48,7 +48,9 @@ public class AuthControllerIntegrationTest {
           .param("redirectUri", this.client.getRedirectUri())
           .contentType(MediaType.APPLICATION_JSON)
       )
-      .andExpect(status().isOk());
+      .andExpect(status().isOk())
+      .andExpect(jsonPath("$.status").value(200))
+      .andExpect(jsonPath("$.body.valid").value(true));
 
     // If the redirectUri is invalid
     mockMvc
