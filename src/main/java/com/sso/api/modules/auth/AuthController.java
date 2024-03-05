@@ -1,17 +1,20 @@
 package com.sso.api.modules.auth;
 
 import com.sso.api.models.Client;
-import com.sso.api.modules.auth.dtos.ClientCheckRequestDto;
+import com.sso.api.modules.auth.dtos.requests.ClientCheckRequestDto;
+import com.sso.api.modules.auth.dtos.responses.ClientCheckResponseDto;
 import com.sso.api.modules.auth.services.ClientService;
 import com.sso.api.repositories.ClientRepository;
 import com.sso.api.repositories.UserRepository;
 import com.sso.api.utils.responses.ApiErrors.BadRequestError;
 import com.sso.api.utils.responses.ApiErrors.ForbbidenError;
+import com.sso.api.utils.responses.ApiResponse;
 import com.sso.api.utils.responses.ApiResponseCodes;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +31,7 @@ public class AuthController {
   }
 
   @GetMapping("/client/check")
-  public ResponseEntity<Object> getMethodName(
+  public ResponseEntity<ApiResponse<ClientCheckResponseDto>> getMethodName(
     @Valid @ModelAttribute ClientCheckRequestDto param
   ) {
     UUID clientId = param.getClientId();
@@ -40,7 +43,7 @@ public class AuthController {
       throw new BadRequestError(ApiResponseCodes.RedirectUriNotValid);
     }
 
-    return ResponseEntity.ok(null);
+    return ApiResponse.ok(new ClientCheckResponseDto(true));
   }
 
   /*
