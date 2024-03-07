@@ -5,7 +5,6 @@ import com.sso.api.repositories.ClientRepository;
 import com.sso.api.utils.responses.ApiErrors.NotFoundError;
 import com.sso.api.utils.responses.ApiResponseCodes;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import org.springframework.stereotype.Service;
 
 @Service
