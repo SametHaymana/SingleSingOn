@@ -14,7 +14,7 @@ public class HasherTest {
   @Test
   public void hashAndVerifyPassword() {
     String originalPassword = "password123";
-    String hashedPassword = Hasher.hash(originalPassword);
+    String hashedPassword = Hasher.pass_hash(originalPassword);
 
     assertNotEquals(
       originalPassword,
@@ -23,14 +23,31 @@ public class HasherTest {
     );
 
     assertTrue(
-      Hasher.verify(originalPassword, hashedPassword),
+      Hasher.pass_verify(originalPassword, hashedPassword),
       "The original password should match the hashed password."
     );
 
     // Assert that the verification of a wrong password against the hashed password fails
     assertFalse(
-      Hasher.verify("wrongPassword", hashedPassword),
+      Hasher.pass_verify("wrongPassword", hashedPassword),
       "A wrong password should not match the hashed password."
+    );
+  }
+
+  @Test
+  public void hashSHA256() throws Exception {
+    String data = "data";
+    String hashedData = Hasher.hashSHA256(data);
+
+    assertNotEquals(
+      data,
+      hashedData,
+      "The hashed data should not match the original data."
+    );
+
+    assertTrue(
+      hashedData.equals(Hasher.hashSHA256(data)),
+      "The hashed data should match the original data."
     );
   }
 }
