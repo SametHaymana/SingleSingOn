@@ -10,7 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 public class HasherTest {
-  /* 
+
   @Test
   public void hashAndVerifyPassword() {
     String originalPassword = "password123";
@@ -33,5 +33,4 @@ public class HasherTest {
       "A wrong password should not match the hashed password."
     );
   }
-  */
 }
