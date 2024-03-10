@@ -16,7 +16,8 @@ public enum ApiResponseCodes {
   /*    Unauthorized 401  */
 
   /*    BadRequest 400    */
-  RedirectUriNotValid(40000, "Redirect uri not valid");
+  RedirectUriNotValid(40000, "Redirect uri not valid"),
+  InvalidCredentials(40001, "Invalid credentials");
 
   private final int code;
   private final String message;
