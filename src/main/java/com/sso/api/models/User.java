@@ -14,10 +14,7 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @Setter
@@ -31,7 +28,7 @@ public class User {
   @Column(nullable = false, unique = true)
   private UUID uid = UUID.randomUUID();
 
-  @Column(nullable = false, length = 100, unique = true)
+  @Column(nullable = true, length = 100, unique = true)
   private String username;
 
   // Email is unique
