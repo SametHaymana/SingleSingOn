@@ -14,7 +14,6 @@ import com.sso.api.utils.responses.ApiErrors.BadRequestError;
 import com.sso.api.utils.responses.ApiResponse;
 import com.sso.api.utils.responses.ApiResponseCodes;
 import jakarta.validation.Valid;
-import java.util.Base64;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,15 +65,15 @@ public class AuthController {
    * Login function
    *
    * params:
-   *        - state
-   *        - redirect_uri
-   *        - client_id
-   *        - timezome
-   *        - email
-   *        - password
+   * - state
+   * - redirect_uri
+   * - client_id
+   * - timezome
+   * - email
+   * - password
    * return:
-   *      - updated redirect_uri with state and code
-   *      - state
+   * - updated redirect_uri with state and code
+   * - state
    *
    */
   @GetMapping("/login")
@@ -102,11 +101,11 @@ public class AuthController {
 
     // Generate code
     /*
-     *  Code Structure
+     * Code Structure
      *
-     *  created_at:expired_at:client_id:user_id:state:API_SECRET1:hash
+     * created_at:expired_at:client_id:user_id:state:API_SECRET1:hash
      *
-     *  as encypted base64
+     * as encypted base64
      *
      */
 
